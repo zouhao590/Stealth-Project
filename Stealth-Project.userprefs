@@ -1,0 +1,15 @@
+﻿<Properties StartupConfiguration="{C1870D95-21C5-9C51-9A4D-157A6102F967}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/GameController.cs">
+    <Files>
+      <File FileName="Assets/Scripts/AlarmLight.cs" Line="7" Column="13" />
+      <File FileName="Assets/Scripts/GameController.cs" Line="14" Column="3" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.Stealth-Project PreferredExecutionTarget="Unity.Editor" />
+</Properties>
