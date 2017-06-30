@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour {
 
+	public static GameController _instance;
+
     public bool alarmOn = false;
+	public Vector3 lastPosition = Vector3.zero;
     private GameObject[] sirens;//警报器
 
+
     private void Awake() {
+		_instance = this;
         alarmOn = false;
     }
 
