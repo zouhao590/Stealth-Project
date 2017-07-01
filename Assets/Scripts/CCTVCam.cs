@@ -14,11 +14,11 @@ public class CCTVCam : MonoBehaviour {
 		
 	}
 		
-	void OntriggerStay(Collider other) {
-		// only foucs on player
-		if (other.tag == "Player") {
-			GameController._instance.alarmOn = true;
-			GameController._instance.lastPosition = other.transform.position;
+	void OnTriggerStay(Collider other)
+	{
+		if (other.tag == Tags.player)
+		{
+			GameController._instance.SeePlayer(other.transform);
 		}
 	}
 }

@@ -1,8 +1,17 @@
 ﻿<Properties StartupConfiguration="{C1870D95-21C5-9C51-9A4D-157A6102F967}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/GameController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/FollowPlayer.cs">
     <Files>
-      <File FileName="Assets/Scripts/AlarmLight.cs" Line="7" Column="13" />
-      <File FileName="Assets/Scripts/GameController.cs" Line="14" Column="3" />
+      <File FileName="Assets/Scripts/AlarmLight.cs" Line="10" Column="30" />
+      <File FileName="Assets/Scripts/GameController.cs" Line="15" Column="28" />
+      <File FileName="Assets/Scripts/Tags.cs" Line="23" Column="1" />
+      <File FileName="Assets/Scripts/CCTVCam.cs" Line="25" Column="1" />
+      <File FileName="Assets/Scripts/Laser.cs" Line="37" Column="5" />
+      <File FileName="Assets/Scripts/Player.cs" Line="13" Column="5" />
+      <File FileName="Assets/Scripts/Door.cs" Line="33" Column="10" />
+      <File FileName="Assets/Scripts/Lift.cs" Line="17" Column="9" />
+      <File FileName="Assets/Scripts/KeyCard.cs" Line="6" Column="5" />
+      <File FileName="Assets/Scripts/SwitchUnit.cs" Line="25" Column="34" />
+      <File FileName="Assets/Scripts/FollowPlayer.cs" Line="36" Column="20" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

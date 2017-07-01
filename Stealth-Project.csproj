@@ -105,7 +105,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\AlarmLight.cs" />
+    <Compile Include="Assets\Scripts\CCTVCam.cs" />
+    <Compile Include="Assets\Scripts\Door.cs" />
+    <Compile Include="Assets\Scripts\FollowPlayer.cs" />
     <Compile Include="Assets\Scripts\GameController.cs" />
+    <Compile Include="Assets\Scripts\KeyCard.cs" />
+    <Compile Include="Assets\Scripts\Laser.cs" />
+    <Compile Include="Assets\Scripts\Lift.cs" />
+    <Compile Include="Assets\Scripts\Player.cs" />
+    <Compile Include="Assets\Scripts\SwitchUnit.cs" />
+    <Compile Include="Assets\Scripts\Tags.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\ReflectiveDiffuseSpecTransp.shader" />
