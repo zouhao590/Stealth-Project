@@ -28,7 +28,7 @@ public class FollowPlayer : MonoBehaviour {
         //this.transform.position = player.position + offset;
 	}
 
-    void AjustPosition() {
+    private void AjustPosition() {
         //起始点
         Vector3 beginPositon = player.position + offset;
         //plyer正上方
@@ -41,7 +41,7 @@ public class FollowPlayer : MonoBehaviour {
             Vector3 tmpPosition = Vector3.Lerp(beginPositon, endPosition, i/n);
             RaycastHit hitInfo;
             if(Physics.Raycast(tmpPosition, player.position - tmpPosition, out hitInfo)) {
-                if(hitInfo.collider.tag == Tags.player) {
+                if(hitInfo.collider.tag == Tags.player || IsIgnoreColliderTag(hitInfo.collider.tag)) {
                     //有射线碰撞，且第一个碰撞体是player，说明当前位置可用
                     transform.position = Vector3.Lerp(transform.position, tmpPosition, Time.deltaTime * moveSpeed);
 
@@ -53,5 +53,15 @@ public class FollowPlayer : MonoBehaviour {
                 }
             }
         }
+    }
+
+    // 忽略某些物体遮挡，//TODO 是否有射线遮罩的方式？
+    private bool IsIgnoreColliderTag(string colliderTag) {
+        string[] ignoreTagList = { Tags.enemy };
+
+        foreach(string ignore in ignoreTagList) {
+            if (ignore == colliderTag) return true;
+        }
+        return false;
     }
 }

@@ -1,17 +1,13 @@
 ﻿<Properties StartupConfiguration="{C1870D95-21C5-9C51-9A4D-157A6102F967}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/FollowPlayer.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/RobotShotting.cs">
     <Files>
-      <File FileName="Assets/Scripts/AlarmLight.cs" Line="10" Column="30" />
-      <File FileName="Assets/Scripts/GameController.cs" Line="15" Column="28" />
-      <File FileName="Assets/Scripts/Tags.cs" Line="23" Column="1" />
-      <File FileName="Assets/Scripts/CCTVCam.cs" Line="25" Column="1" />
-      <File FileName="Assets/Scripts/Laser.cs" Line="37" Column="5" />
-      <File FileName="Assets/Scripts/Player.cs" Line="13" Column="5" />
-      <File FileName="Assets/Scripts/Door.cs" Line="33" Column="10" />
-      <File FileName="Assets/Scripts/Lift.cs" Line="17" Column="9" />
-      <File FileName="Assets/Scripts/KeyCard.cs" Line="6" Column="5" />
-      <File FileName="Assets/Scripts/SwitchUnit.cs" Line="25" Column="34" />
-      <File FileName="Assets/Scripts/FollowPlayer.cs" Line="36" Column="20" />
+      <File FileName="Assets/Scripts/RobotMoveAI.cs" Line="40" Column="84" />
+      <File FileName="Assets/Scripts/RobotSight.cs" Line="74" Column="16" />
+      <File FileName="Assets/Scripts/GameController.cs" Line="84" Column="46" />
+      <File FileName="Assets/Scripts/RobotAnimation.cs" Line="44" Column="13" />
+      <File FileName="Assets/Scripts/Door.cs" Line="53" Column="10" />
+      <File FileName="Assets/Scripts/PlayerHealth.cs" Line="24" Column="23" />
+      <File FileName="Assets/Scripts/RobotShotting.cs" Line="9" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

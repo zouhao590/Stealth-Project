@@ -7,7 +7,7 @@ public class GameController : MonoBehaviour {
 	public static GameController _instance;
 
     public bool alarmOn = false;
-	public Vector3 lastPosition = Vector3.zero;
+    public Vector3 lastPlayerPosition = Vector3.zero;
     private GameObject[] sirens;//警报器
 
     //两个背景音乐
@@ -78,9 +78,15 @@ public class GameController : MonoBehaviour {
 		}
     }
 
-    //when cam or laser find player
+    //when cam or laser or robot find player
     public void SeePlayer(Transform player) {
         alarmOn = true;
-        lastPosition = player.position;
+        lastPlayerPosition = player.position;
     }
+
+
+	public void LostPlayer() {
+        alarmOn = false;
+        lastPlayerPosition = Vector3.zero;
+	}
 }

@@ -86,4 +86,10 @@ public class Player : MonoBehaviour {
 			audioSource.Stop();
 		}
 	}
+
+    // 是否能听到脚步声，提供给外部调用
+    public bool IsStepMusicPlaying() {
+        return GetComponent<AudioSource>().isPlaying;
+    }
+
 }

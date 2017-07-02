@@ -1,0 +1,104 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.AI;
+
+public class RobotSight : MonoBehaviour {
+
+	//TODO 能否开枪应该还要能射线射到
+
+	// 视线可视角度
+	private const float fieldOfView = 120;
+
+    // 视线范围内，可以直接射击
+    public bool bPlayerInsight = false;
+    // 要追踪player的位置
+    public Vector3 alertPosition = Vector3.zero;
+    // 全局发现的player位置
+    public Vector3 lastPlayerPosition;
+
+    private NavMeshAgent navAgent;
+    private SphereCollider sphereCollider;
+
+	// Use this for initialization
+	void Start () {
+        navAgent = GetComponent<NavMeshAgent>();
+        sphereCollider = GetComponent<SphereCollider>();
+        //lastPlayerPosition = GameController._instance.lastPlayerPosition;
+	}
+	
+	// Update is called once per frame
+	void Update () {
+
+        // only called once
+        if(lastPlayerPosition == null) {
+            lastPlayerPosition = GameController._instance.lastPlayerPosition;
+        }
+
+        if(GameController._instance.lastPlayerPosition != lastPlayerPosition) {
+            lastPlayerPosition = GameController._instance.lastPlayerPosition;
+            alertPosition = lastPlayerPosition;
+        }
+
+	}
+
+    void OnTriggerStay(Collider other) {
+		if (other.tag != Tags.player) {
+            return;
+		}
+        Player player = other.GetComponent<Player>();
+        if (!player) return;
+
+		//先检测是否能看到player
+        //两个条件：1.发射射线能射到玩家  2.在眼睛可视角范围内
+		RaycastHit hitInfo;
+        bool bCasted = Physics.Raycast(transform.position + Vector3.up, other.transform.position - transform.position, out hitInfo);
+        float angle = Vector3.Angle(transform.forward, other.transform.position - transform.position);
+
+        if ((bCasted && hitInfo.collider.tag == Tags.player) &&  angle <= fieldOfView / 2f) {
+            bPlayerInsight = true;
+            alertPosition = other.transform.position;
+            //拉起全局警报
+            GameController._instance.SeePlayer(other.transform);
+			//能看到就直接返回了
+			return;
+        }else {
+            bPlayerInsight = false;
+        }
+
+
+        //检测能否听到脚步声，考虑到有墙的情况，根据最短导航路径判长度断是否能听到
+        //首先要player发出脚步声
+        if (player.IsStepMusicPlaying()) {
+            //然后计算最短导航路径
+            NavMeshPath path = new NavMeshPath();
+            if (navAgent.CalculatePath(other.transform.position, path))
+            {
+                //路径上所有点，包括robot和player
+                Vector3[] wayPoint = new Vector3[path.corners.Length + 2];
+                wayPoint[0] = transform.position;
+                wayPoint[wayPoint.Length - 1] = other.transform.position;
+                for (int i = 0; i < path.corners.Length; i++)
+                {
+                    wayPoint[i + 1] = path.corners[i];
+                }
+                //计算所有点连线长度
+                float length = 0;
+                for (int i = 1; i < wayPoint.Length; i++)
+                {
+                    length += (wayPoint[i] - wayPoint[i - 1]).magnitude;
+                }
+                //如果距离小于最大距离，认为可以听到脚步声
+                //此处只是听到，自己追踪，不拉起全局警报
+                alertPosition = length <= sphereCollider.radius ? other.transform.position : alertPosition;
+            }
+        }
+	}
+
+    private void OnTriggerExit(Collider other) {
+        if (other.tag == Tags.player) {
+            bPlayerInsight = false;
+        }
+    }
+
+}

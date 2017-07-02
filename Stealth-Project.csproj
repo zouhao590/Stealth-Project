@@ -113,6 +113,11 @@
     <Compile Include="Assets\Scripts\Laser.cs" />
     <Compile Include="Assets\Scripts\Lift.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
+    <Compile Include="Assets\Scripts\PlayerHealth.cs" />
+    <Compile Include="Assets\Scripts\RobotAnimation.cs" />
+    <Compile Include="Assets\Scripts\RobotMoveAI.cs" />
+    <Compile Include="Assets\Scripts\RobotShotting.cs" />
+    <Compile Include="Assets\Scripts\RobotSight.cs" />
     <Compile Include="Assets\Scripts\SwitchUnit.cs" />
     <Compile Include="Assets\Scripts\Tags.cs" />
   </ItemGroup>

@@ -45,9 +45,15 @@ public class Door : MonoBehaviour {
         }
 
         // 不需要钥匙的时候直接开门
-        if (other.tag == Tags.player || other.tag == Tags.enemy) {
+        if (other.tag == Tags.player) {
             myAnimator.SetBool("bClose", false);
-		}
+        }else if(other.tag == Tags.enemy && !other.isTrigger) {
+            //机器人的脚步声探测collider不算
+            myAnimator.SetBool("bClose", false);
+        }
+        //else {
+        //    Debug.LogError("coll:" + other + "is tri:" + other.isTrigger);
+        //}
 	}
 
 	void OnTriggerExit(Collider other)
