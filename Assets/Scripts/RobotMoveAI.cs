@@ -106,7 +106,7 @@ public class RobotMoveAI : MonoBehaviour {
 
     private void Shootting() {
 		AnimatorStateInfo info = anim.GetCurrentAnimatorStateInfo(1);
-        Debug.LogError("state:" + info.IsName("WeaponShoot") + ", time:" + info.normalizedTime);
+        //Debug.LogError("state:" + info.IsName("WeaponShoot") + ", time:" + info.normalizedTime);
 		if (info.IsName("WeaponShoot") && info.normalizedTime >= 1) {
             
 			Debug.LogError("shotting!!");

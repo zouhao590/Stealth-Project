@@ -32,8 +32,8 @@ public class PlayerHealth : MonoBehaviour {
 
     IEnumerator ReloadScene() {
         yield return new WaitForSeconds(2f);
-        //Application.LoadLevel(0);
-        SceneManager.LoadScene("MainScene",LoadSceneMode.Single);
+        //SceneManager.LoadScene("MainScene",LoadSceneMode.Single);
+        Debug.LogError("Game Over！");
     }
 
 }
