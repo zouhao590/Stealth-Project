@@ -37,10 +37,12 @@ public class Door : MonoBehaviour {
 
         // 需要钥匙的时候检查是否是player，且是否有钥匙
         if(needKey) {
-            Player player = other.GetComponent<Player>();
-            if(player == null || !player.hasKey) {
-                if (myDenidAudio != null) myDenidAudio.Play();
-                return;
+            if(other.tag == Tags.player) {
+				Player player = other.GetComponent<Player>();
+				if (player == null || !player.hasKey) {
+					if (myDenidAudio != null) myDenidAudio.Play();
+					return;
+				}
             }
         }
 

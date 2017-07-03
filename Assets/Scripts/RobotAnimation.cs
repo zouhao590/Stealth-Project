@@ -9,6 +9,7 @@ public class RobotAnimation : MonoBehaviour {
     private Animator anim;
     private RobotSight robotSight;
 
+
 	// Use this for initialization
 	void Start () {
         navAgent = GetComponent<NavMeshAgent>();

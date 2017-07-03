@@ -5,10 +5,13 @@ using UnityEngine.AI;
 
 public class RobotMoveAI : MonoBehaviour {
 
+    private const float MIN_DAMAGE = 100;
 
     public Transform[] wayPoints;
     private PlayerHealth playerHealth;
-    private int index;
+    private Animator anim;
+    private int index = 0;
+    //private bool hasShoot = false;
 
     // 巡逻休息时间
     private float restTime = 2f;
@@ -21,13 +24,12 @@ public class RobotMoveAI : MonoBehaviour {
     private RobotSight robotSight;
 	// Use this for initialization
 	void Start () {
+        anim = GetComponent<Animator>();
         navAgent = GetComponent<NavMeshAgent>();
         robotSight = GetComponent<RobotSight>();
         if(wayPoints != null) {
             // nav只管方向，不控制运动
-            navAgent.destination = wayPoints[Mathf.Min(index, wayPoints.Length - 1)].position;
-            navAgent.updatePosition = false;
-            navAgent.updateRotation = false;
+            SetNavDestination(wayPoints[Mathf.Min(index, wayPoints.Length - 1)].position);
         }
         playerHealth = GameObject.FindGameObjectWithTag(Tags.player).GetComponent<PlayerHealth>();
 	}
@@ -35,12 +37,15 @@ public class RobotMoveAI : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if(robotSight.bPlayerInsight && playerHealth.isAlive()) {
+            //Debug.LogError("满足射击条件了!!");
             //在视野内，射击
             Shootting();
         }else if(robotSight.alertPosition != Vector3.zero && playerHealth.isAlive()) {
+            //Debug.LogError("满足追捕条件了!!");
             //追捕
             Chasing();
         }else {
+            //Debug.LogError("满足巡逻条件了!!");
             //巡逻
            Patrolling(); 
         }
@@ -49,6 +54,12 @@ public class RobotMoveAI : MonoBehaviour {
     //巡逻
     private void Patrolling() {
         navAgent.speed = 2;
+        navAgent.isStopped = false;
+		//如果目的地不在巡逻点，说明可能是从追捕状态切换回来的，重新设置巡逻点
+        if(navAgent.destination != wayPoints[index].position) {
+            SetNavDestination(wayPoints[index].position);
+        }
+
         //如果nav已经到达目的地了，robot可能还差一点，这里忽略，因为后面的补偿机制距离不超过0.5
         if(navAgent.remainingDistance <= 0.01) {
             //开始计时休息，达到时限后重新出发
@@ -56,10 +67,7 @@ public class RobotMoveAI : MonoBehaviour {
             if(restTimer >= restTime) {
                 index++;
                 index %= wayPoints.Length;
-                navAgent.destination = wayPoints[index].position;
-                navAgent.isStopped = false;
-				navAgent.updatePosition = false;
-				navAgent.updateRotation = false;
+                SetNavDestination(wayPoints[index].position);
                 restTimer = 0;
             }
         }else {
@@ -71,10 +79,7 @@ public class RobotMoveAI : MonoBehaviour {
     }
 
     private void Chasing() {
-        navAgent.destination = robotSight.alertPosition;
-        navAgent.isStopped = false;
-		navAgent.updatePosition = false;
-		navAgent.updateRotation = false;
+        SetNavDestination(robotSight.alertPosition);
         navAgent.speed = 5;
 
 		// 这里也需要同步nav与robot位置
@@ -92,7 +97,29 @@ public class RobotMoveAI : MonoBehaviour {
         }
     }
 
+    private void SetNavDestination(Vector3 pos) {
+		navAgent.destination = pos;
+		navAgent.isStopped = false;
+		navAgent.updatePosition = false;
+		navAgent.updateRotation = false;
+    }
+
     private void Shootting() {
+		AnimatorStateInfo info = anim.GetCurrentAnimatorStateInfo(1);
+        Debug.LogError("state:" + info.IsName("WeaponShoot") + ", time:" + info.normalizedTime);
+		if (info.IsName("WeaponShoot") && info.normalizedTime >= 1) {
+            
+			Debug.LogError("shotting!!");
+			//计算伤害，距离越近伤害越大
+			float damage = MIN_DAMAGE + 80 - 8 * (transform.position - playerHealth.transform.position).magnitude;
+			damage = Mathf.Max(MIN_DAMAGE, damage);
+			playerHealth.TakeDamage(damage);
+			//hasShoot = true;
+		}else {
+			//hasShoot = false;
+		}
+
+
         navAgent.isStopped = true;
     }
 }

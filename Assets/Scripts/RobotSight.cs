@@ -49,6 +49,13 @@ public class RobotSight : MonoBehaviour {
         Player player = other.GetComponent<Player>();
         if (!player) return;
 
+        // 如果玩家已经死了，就不管了
+        PlayerHealth health = other.GetComponent<PlayerHealth>();
+        if (!health || !health.isAlive()) {
+            GameController._instance.LostPlayer();
+            return;
+        }
+
 		//先检测是否能看到player
         //两个条件：1.发射射线能射到玩家  2.在眼睛可视角范围内
 		RaycastHit hitInfo;
