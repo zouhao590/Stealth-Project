@@ -24,7 +24,7 @@ public class SwitchUnit : MonoBehaviour {
 	void OnTriggerStay(Collider other) {
 		if (other.tag == Tags.player) {
             if(Input.GetKeyDown(KeyCode.Z)) {
-				laser.SetActive(false);
+                if (laser) laser.SetActive(false);
 				myAudio.Play();
 				screen.GetComponent<Renderer>().material = unlockMaterial;
             }

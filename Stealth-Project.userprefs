@@ -1,14 +1,10 @@
 ﻿<Properties StartupConfiguration="{C1870D95-21C5-9C51-9A4D-157A6102F967}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Lift.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/RobotAnimation.cs">
     <Files>
-      <File FileName="Assets/Scripts/RobotShotting.cs" Line="27" Column="9" />
-      <File FileName="Assets/Scripts/RobotMoveAI.cs" Line="30" Column="32" />
-      <File FileName="Assets/Scripts/RobotAnimation.cs" Line="50" Column="23" />
-      <File FileName="Assets/Scripts/RobotSight.cs" Line="55" Column="51" />
-      <File FileName="Assets/Scripts/PlayerHealth.cs" Line="36" Column="64" />
-      <File FileName="Assets/Scripts/Door.cs" Line="68" Column="2" />
-      <File FileName="Assets/Scripts/GameController.cs" Line="88" Column="14" />
-      <File FileName="Assets/Scripts/Lift.cs" Line="30" Column="6" />
+      <File FileName="Assets/Scripts/GameController.cs" Line="29" Column="5" />
+      <File FileName="Assets/Scripts/RobotSight.cs" Line="26" Column="57" />
+      <File FileName="Assets/Scripts/RobotAnimation.cs" Line="16" Column="41" />
+      <File FileName="Assets/Scripts/RobotMoveAI.cs" Line="42" Column="22" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

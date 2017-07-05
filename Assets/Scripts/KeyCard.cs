@@ -24,7 +24,7 @@ public class KeyCard : MonoBehaviour {
             if(player != null) {
                 // 使用外部播放声音，否则对象销毁后声音立即停止
                 AudioSource.PlayClipAtPoint(musicPickup, transform.position);
-                player.hasKey = true;
+                player.PickupKey();
                 Destroy(this.gameObject);
             }
 		}

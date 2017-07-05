@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Door : MonoBehaviour {
-
-    private Animator myAnimator;
-    public AudioSource myOpenAudio;
-    public AudioSource myDenidAudio;
-
+    
     // 是否需要钥匙开门
     public bool needKey = false;
+	
+    private Animator myAnimator;
+    // 外部赋值
+	public AudioSource myOpenAudio;
+	public AudioSource myDenidAudio;
 
     private void Awake() {
         myAnimator = GetComponent<Animator>();
-        //myOpenAudio = GetComponent<AudioSource>();
     }
 
     // Use this for initialization
@@ -26,8 +26,7 @@ public class Door : MonoBehaviour {
 
         // 在开关门动画切换的时候播放，不需要手动stop，否自播一帧就没了
         if (myAnimator.IsInTransition(0)) {
-            if (!myOpenAudio.isPlaying)
-            {
+            if (myOpenAudio && !myOpenAudio.isPlaying) {
                 myOpenAudio.Play();
             }
         }
@@ -39,7 +38,7 @@ public class Door : MonoBehaviour {
         if(needKey) {
             if(other.tag == Tags.player) {
 				Player player = other.GetComponent<Player>();
-				if (player == null || !player.hasKey) {
+                if (player == null || !player.HasKey()) {
 					if (myDenidAudio != null) myDenidAudio.Play();
 					return;
 				}
@@ -53,9 +52,6 @@ public class Door : MonoBehaviour {
             //机器人的脚步声探测collider不算
             myAnimator.SetBool("bClose", false);
         }
-        //else {
-        //    Debug.LogError("coll:" + other + "is tri:" + other.isTrigger);
-        //}
 	}
 
 	void OnTriggerExit(Collider other)

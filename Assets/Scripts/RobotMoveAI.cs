@@ -36,7 +36,7 @@ public class RobotMoveAI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if(robotSight.bPlayerInsight && playerHealth.isAlive()) {
+        if(robotSight.IsPlayerInsight() && playerHealth.isAlive()) {
             //Debug.LogError("满足射击条件了!!");
             //在视野内，射击
             Shootting();
@@ -91,7 +91,7 @@ public class RobotMoveAI : MonoBehaviour {
         if (navAgent.remainingDistance < 1f) {
 			chaseTimer += Time.deltaTime;
 			if (chaseTimer > chaseTime) {
-				GameController._instance.LostPlayer();
+				GameController.Instance.LostPlayer();
 				chaseTimer = 0;
 			}
         }

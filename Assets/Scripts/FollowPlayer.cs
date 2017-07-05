@@ -5,8 +5,8 @@ using UnityEngine;
 public class FollowPlayer : MonoBehaviour {
 
     //相机移动和旋转的速度
-    public float moveSpeed = 3;
-    public float rotateSpeed = 3;
+    private float moveSpeed = 3;
+    private float rotateSpeed = 3;
 
     // 相机和主角的偏移
     private Vector3 offset;
@@ -22,13 +22,13 @@ public class FollowPlayer : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
         AjustPosition();
-
-        //this.transform.position = player.position + offset;
 	}
 
     private void AjustPosition() {
+
+        if (!player) return;
+
         //起始点
         Vector3 beginPositon = player.position + offset;
         //plyer正上方
@@ -55,7 +55,7 @@ public class FollowPlayer : MonoBehaviour {
         }
     }
 
-    // 忽略某些物体遮挡，//TODO 是否有射线遮罩的方式？
+    // 忽略某些物体遮挡，//TODO 这里也可以用layerMask分层忽略
     private bool IsIgnoreColliderTag(string colliderTag) {
         string[] ignoreTagList = { Tags.enemy };
 

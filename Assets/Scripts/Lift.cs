@@ -5,21 +5,22 @@ using UnityEngine.SceneManagement;
 
 public class Lift : MonoBehaviour {
 
-    // 获取内外两扇门位置
+    //获取内外两扇门位置
     public Transform outerLeft;
     public Transform innerLeft;
 	public Transform outerRight;
 	public Transform innerRight;
-
-    private float innerSpeed = 5;
+    //内门滞后时间
+    private const float innerSpeed = 5;
     //电梯启动时间
-    private float liftStartTime = 2;
+    private const float liftStartTime = 2;
     private float liftStartTimer = 0;
-    private bool bPlayerIn = false;
     //电梯到达时间
-    private float liftArriveTime = 6;
+    private const float liftArriveTime = 6;
     private float liftArriveTimer = 0;
-    private bool bWin = false;
+
+    private bool bPlayerIn = false;
+
 
 	// Use this for initialization
 	void Start () {
@@ -29,7 +30,8 @@ public class Lift : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (bWin) return;
+        // 电梯已到达
+        if (liftArriveTimer >= liftArriveTime) return;
 
         // 电梯内门跟随外门运动，保持一定滞后
         float leftPos = Mathf.Lerp(innerLeft.position.x, outerLeft.position.x, Time.deltaTime * innerSpeed);
@@ -44,9 +46,7 @@ public class Lift : MonoBehaviour {
                 liftArriveTimer += Time.deltaTime;
                 // 电梯到达，游戏胜利
                 if (liftArriveTimer >= liftArriveTime) {
-                    //SceneManager.LoadScene("");
-                    bWin = true;
-                    Debug.LogError("游戏胜利！");
+                    GameController.Instance.HandleLiftArrived();
                 }
             }
         }

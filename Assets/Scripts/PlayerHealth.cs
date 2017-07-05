@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour {
 
+    //todo 调试方便暂时public
     public float hp = 100;
     private Animator anim;
 
@@ -19,21 +20,15 @@ public class PlayerHealth : MonoBehaviour {
 	}
 
     public void TakeDamage(float damage) {
-        hp -= damage;
+        hp -= damage < 0 ? 0 : damage;
         if(hp <= 0) {
             anim.SetBool("dead", true);
-            StartCoroutine(ReloadScene());
+            GameController.Instance.HandlePlayerDead();
         }
     }
 
     public bool isAlive() {
         return hp > 0;
-    }
-
-    IEnumerator ReloadScene() {
-        yield return new WaitForSeconds(2f);
-        //SceneManager.LoadScene("MainScene",LoadSceneMode.Single);
-        Debug.LogError("Game Over！");
     }
 
 }

@@ -14,11 +14,9 @@ public class CCTVCam : MonoBehaviour {
 		
 	}
 		
-	void OnTriggerStay(Collider other)
-	{
-		if (other.tag == Tags.player)
-		{
-			GameController._instance.SeePlayer(other.transform);
+	void OnTriggerStay(Collider other) {
+		if (other.tag == Tags.player) {
+            GameController.GetAlarmReceiver().SeePlayer(other.transform);
 		}
 	}
 }

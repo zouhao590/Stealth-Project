@@ -4,15 +4,13 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class RobotSight : MonoBehaviour {
-
-	//TODO 能否开枪应该还要能射线射到
-
+    
 	// 视线可视角度
 	private const float fieldOfView = 120;
 
-    // 视线范围内，可以直接射击
+    // 视线范围内，可以射击
     public bool bPlayerInsight = false;
-    // 要追踪player的位置
+    // 要追踪player的位置(可能是看到或听到)
     public Vector3 alertPosition = Vector3.zero;
     // 全局发现的player位置
     public Vector3 lastPlayerPosition;
@@ -24,7 +22,6 @@ public class RobotSight : MonoBehaviour {
 	void Start () {
         navAgent = GetComponent<NavMeshAgent>();
         sphereCollider = GetComponent<SphereCollider>();
-        //lastPlayerPosition = GameController._instance.lastPlayerPosition;
 	}
 	
 	// Update is called once per frame
@@ -32,17 +29,17 @@ public class RobotSight : MonoBehaviour {
 
         // only called once
         if(lastPlayerPosition == null) {
-            lastPlayerPosition = GameController._instance.lastPlayerPosition;
+            lastPlayerPosition = GameController.Instance.lastPlayerPosition;
         }
 
-        if(GameController._instance.lastPlayerPosition != lastPlayerPosition) {
-            lastPlayerPosition = GameController._instance.lastPlayerPosition;
+        if(GameController.Instance.lastPlayerPosition != lastPlayerPosition) {
+            lastPlayerPosition = GameController.Instance.lastPlayerPosition;
             alertPosition = lastPlayerPosition;
         }
 
 	}
 
-    void OnTriggerStay(Collider other) {
+    private void OnTriggerStay(Collider other) {
 		if (other.tag != Tags.player) {
             return;
 		}
@@ -52,7 +49,7 @@ public class RobotSight : MonoBehaviour {
         // 如果玩家已经死了，就不管了
         PlayerHealth health = other.GetComponent<PlayerHealth>();
         if (!health || !health.isAlive()) {
-            GameController._instance.LostPlayer();
+            GameController.Instance.LostPlayer();
             return;
         }
 
@@ -66,7 +63,7 @@ public class RobotSight : MonoBehaviour {
             bPlayerInsight = true;
             alertPosition = other.transform.position;
             //拉起全局警报
-            GameController._instance.SeePlayer(other.transform);
+            GameController.Instance.SeePlayer(other.transform);
 			//能看到就直接返回了
 			return;
         }else {
@@ -106,6 +103,10 @@ public class RobotSight : MonoBehaviour {
         if (other.tag == Tags.player) {
             bPlayerInsight = false;
         }
+    }
+
+    public bool IsPlayerInsight() {
+        return bPlayerInsight;    
     }
 
 }
