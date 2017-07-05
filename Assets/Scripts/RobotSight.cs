@@ -8,12 +8,10 @@ public class RobotSight : MonoBehaviour {
 	// 视线可视角度
 	private const float fieldOfView = 120;
 
+	// 要追踪player的位置，听到脚步声
+    private Vector3 alertPosition = Vector3.zero;
     // 视线范围内，可以射击
-    public bool bPlayerInsight = false;
-    // 要追踪player的位置(可能是看到或听到)
-    public Vector3 alertPosition = Vector3.zero;
-    // 全局发现的player位置
-    public Vector3 lastPlayerPosition;
+    private bool bPlayerInsight = false;
 
     private NavMeshAgent navAgent;
     private SphereCollider sphereCollider;
@@ -28,14 +26,14 @@ public class RobotSight : MonoBehaviour {
 	void Update () {
 
         // only called once
-        if(lastPlayerPosition == null) {
-            lastPlayerPosition = GameController.Instance.lastPlayerPosition;
-        }
+        //if(lastPlayerPosition == null) {
+        //    lastPlayerPosition = GameController.Instance.lastPlayerPosition;
+        //}
 
-        if(GameController.Instance.lastPlayerPosition != lastPlayerPosition) {
-            lastPlayerPosition = GameController.Instance.lastPlayerPosition;
-            alertPosition = lastPlayerPosition;
-        }
+        //if(GameController.Instance.lastPlayerPosition != lastPlayerPosition) {
+        //    lastPlayerPosition = GameController.Instance.lastPlayerPosition;
+        //    alertPosition = lastPlayerPosition;
+        //}
 
 	}
 
@@ -46,8 +44,8 @@ public class RobotSight : MonoBehaviour {
         Player player = other.GetComponent<Player>();
         if (!player) return;
 
-        // 如果玩家已经死了，就不管了
-        PlayerHealth health = other.GetComponent<PlayerHealth>();
+		// 如果玩家已经死了，就不管了
+		PlayerHealth health = other.GetComponent<PlayerHealth>();
         if (!health || !health.isAlive()) {
             GameController.Instance.LostPlayer();
             return;
@@ -61,7 +59,6 @@ public class RobotSight : MonoBehaviour {
 
         if ((bCasted && hitInfo.collider.tag == Tags.player) &&  angle <= fieldOfView / 2f) {
             bPlayerInsight = true;
-            alertPosition = other.transform.position;
             //拉起全局警报
             GameController.Instance.SeePlayer(other.transform);
 			//能看到就直接返回了
@@ -82,14 +79,12 @@ public class RobotSight : MonoBehaviour {
                 Vector3[] wayPoint = new Vector3[path.corners.Length + 2];
                 wayPoint[0] = transform.position;
                 wayPoint[wayPoint.Length - 1] = other.transform.position;
-                for (int i = 0; i < path.corners.Length; i++)
-                {
+                for (int i = 0; i < path.corners.Length; i++) {
                     wayPoint[i + 1] = path.corners[i];
                 }
                 //计算所有点连线长度
                 float length = 0;
-                for (int i = 1; i < wayPoint.Length; i++)
-                {
+                for (int i = 1; i < wayPoint.Length; i++) {
                     length += (wayPoint[i] - wayPoint[i - 1]).magnitude;
                 }
                 //如果距离小于最大距离，认为可以听到脚步声
@@ -109,4 +104,12 @@ public class RobotSight : MonoBehaviour {
         return bPlayerInsight;    
     }
 
+    public Vector3 GetAlertPosition() {
+        return alertPosition;
+    }
+
+    //处理追捕后没没看到player的情况
+    public void HandleNoPlayer() {
+        alertPosition = Vector3.zero;
+    }
 }

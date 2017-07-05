@@ -31,7 +31,7 @@ public class Laser : MonoBehaviour {
 	}
 
     void OnTriggerStay(Collider other) {
-        if(other.tag == Tags.player) {
+        if(other.tag == Tags.player && myRenderer.enabled) {
             GameController.GetAlarmReceiver().SeePlayer(other.transform);
         }
     }

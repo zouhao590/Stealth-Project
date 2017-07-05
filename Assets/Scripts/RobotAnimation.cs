@@ -47,7 +47,7 @@ public class RobotAnimation : MonoBehaviour {
         }
 
         //射击动画同步insight变量
-        anim.SetBool("bPlayerInsight", robotSight.bPlayerInsight);
+        anim.SetBool("bPlayerInsight", robotSight.IsPlayerInsight());
 	}
 
 
