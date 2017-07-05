@@ -8,13 +8,14 @@ public class RobotAnimation : MonoBehaviour {
     private NavMeshAgent navAgent;
     private Animator anim;
     private RobotSight robotSight;
-
+    private PlayerHealth playerHealth;
 
 	// Use this for initialization
 	void Start () {
         navAgent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
         robotSight = GetComponent<RobotSight>();
+        playerHealth = GameObject.FindGameObjectWithTag(Tags.player).GetComponent<PlayerHealth>();
 	}
 	
 	// Update is called once per frame
@@ -46,8 +47,8 @@ public class RobotAnimation : MonoBehaviour {
             anim.SetFloat("anglarSpeed", angleRad * 10); //提高转速
         }
 
-        //射击动画同步insight变量
-        anim.SetBool("bPlayerInsight", robotSight.IsPlayerInsight());
+        //射击动画同步insight变量，活着才算
+        anim.SetBool("bPlayerInsight", robotSight.IsPlayerInsight() && playerHealth.isAlive());
 	}
 
 
